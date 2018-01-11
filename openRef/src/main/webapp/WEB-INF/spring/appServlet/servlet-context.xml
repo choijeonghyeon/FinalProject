@@ -26,6 +26,7 @@
 	   <beans:property name="defaultEncoding" value="UTF-8"/><!-- 한글처리가능 -->
 	</beans:bean>
 	
+	<!-- 해당 패키지 내의 @Controller 자동 스캔 -->
 	<context:component-scan base-package="com.openref.app" />
 	
 	
