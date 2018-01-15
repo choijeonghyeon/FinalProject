@@ -83,7 +83,7 @@
                   <i class="fa fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="/resources/img/portfolio/cabin.png" alt="">
+              <img class="img-fluid" src="${photo}" alt="">
             </a>
           </div>
           <div class="col-md-6 col-lg-4">

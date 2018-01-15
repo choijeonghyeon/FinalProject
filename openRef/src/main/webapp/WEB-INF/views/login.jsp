@@ -1,20 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>·Î±×ÀÎ ÆäÀÌÁö</title>
+<title>ë¡œê·¸ì¸ í˜ì´ì§€</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
     
-    <!-- Ä«Ä«¿ÀÅå ·Î±×ÀÎ -->
+    <!-- ì¹´ì¹´ì˜¤í†¡ ë¡œê·¸ì¸ -->
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
     <!-- naver -->
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
     <!-- Bootstrap core CSS -->
     <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +35,7 @@
   <body id="page-top">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+    <nav class="navbar navdbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">Open Refrigerator</a>
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,14 +56,15 @@
     <header class="masthead bg-primary text-white text-center">
       <div class="container">
       	<h1 class="text-uppercase mb-0">JOIN US</h1>
-      	<h5 class="font-weight-light mb-0">±âÁ¸¿¡ »ç¿ëÇÏ½Ã´Â °èÁ¤À¸·Î °£´ÜÇÏ°Ô È¸¿ø°¡ÀÔ ÇÏ¼¼¿ä.</h5>
+      	<h5 class="font-weight-light mb-0">ê¸°ì¡´ì— ì‚¬ìš©í•˜ì‹œëŠ” ê³„ì •ìœ¼ë¡œ ê°„ë‹¨í•˜ê²Œ íšŒì›ê°€ì… í•˜ì„¸ìš”.</h5>
       	<hr class="star-light">
+      	
        	<a id="kakao-login-btn"></a>
        	 <script type='text/javascript'>
      	 //<![CDATA[
-        // »ç¿ëÇÒ ¾ÛÀÇ JavaScript Å°¸¦ ¼³Á¤ÇØ ÁÖ¼¼¿ä.
+        // ì‚¬ìš©í•  ì•±ì˜ JavaScript í‚¤ë¥¼ ì„¤ì •í•´ ì£¼ì„¸ìš”.
         Kakao.init('f9d11ad5a866d8080d8f0f77144fa42c');
-        // Ä«Ä«¿À ·Î±×ÀÎ ¹öÆ°À» »ı¼ºÇÕ´Ï´Ù.
+        // ì¹´ì¹´ì˜¤ ë¡œê·¸ì¸ ë²„íŠ¼ì„ ìƒì„±í•©ë‹ˆë‹¤.
         Kakao.Auth.createLoginButton({
           container: '#kakao-login-btn',
           success: function(authObj) {
@@ -70,7 +72,20 @@
                   url: '/v1/user/me',
                   success: function(res) {
                     alert(JSON.stringify(res));
-                    var res = res
+                    //var nickname = rs.properties.nickname;
+                    //var photo = res.properties.profile_image;
+                  
+                    $.ajax({
+                    	type :'POST',
+                    	url :'/login.do',
+                    	dataType :'json',
+                    	data : JSON.stringify(res),
+                    	success : function(data){
+                    		console.log(data);
+                    		location.href ="/main.do";
+                    	}
+                    	
+                    });           
                   },
                   fail: function(error) {
                     alert(JSON.stringify(error));
@@ -85,20 +100,20 @@
     	</script>
     	</br>
     <div id="naverIdLogin"></div>
-	<!-- //³×ÀÌ¹ö¾ÆÀÌµğ·Î·Î±×ÀÎ ¹öÆ° ³ëÃâ ¿µ¿ª -->
+	<!-- //ë„¤ì´ë²„ì•„ì´ë””ë¡œë¡œê·¸ì¸ ë²„íŠ¼ ë…¸ì¶œ ì˜ì—­ -->
 
-	<!-- ³×ÀÌ¹ö¾Æµğµğ·Î·Î±×ÀÎ ÃÊ±âÈ­ Script -->
+	<!-- ë„¤ì´ë²„ì•„ë””ë””ë¡œë¡œê·¸ì¸ ì´ˆê¸°í™” Script -->
 	<script type="text/javascript">
 	var naverLogin = new naver.LoginWithNaverId(
 		{
 			clientId: "PzaF5F1zio7wggH2yAAL",
 			callbackUrl: "http://localhost:8080/login.do",
-			isPopup: false, /* ÆË¾÷À» ÅëÇÑ ¿¬µ¿Ã³¸® ¿©ºÎ */
-			loginButton: {color: "green", type: 3, height: 50} /* ·Î±×ÀÎ ¹öÆ°ÀÇ Å¸ÀÔÀ» ÁöÁ¤ */
+			isPopup: false, /* íŒì—…ì„ í†µí•œ ì—°ë™ì²˜ë¦¬ ì—¬ë¶€ */
+			loginButton: {color: "green", type: 3, height: 50} /* ë¡œê·¸ì¸ ë²„íŠ¼ì˜ íƒ€ì…ì„ ì§€ì • */
 		}
 		);
 	
-		/* ¼³Á¤Á¤º¸¸¦ ÃÊ±âÈ­ÇÏ°í ¿¬µ¿À» ÁØºñ */
+		/* ì„¤ì •ì •ë³´ë¥¼ ì´ˆê¸°í™”í•˜ê³  ì—°ë™ì„ ì¤€ë¹„ */
 		naverLogin.init();
 	
 	</script>     	
