@@ -63,6 +63,7 @@
        	 <script type='text/javascript'>
      	 //<![CDATA[
         // 사용할 앱의 JavaScript 키를 설정해 주세요.
+        
         Kakao.init('f9d11ad5a866d8080d8f0f77144fa42c');
         // 카카오 로그인 버튼을 생성합니다.
         Kakao.Auth.createLoginButton({
@@ -74,23 +75,16 @@
                     alert(JSON.stringify(res));
                     //var nickname = rs.properties.nickname;
                     //var photo = res.properties.profile_image;
-                  
-                    $.ajax({
-                    	type :'POST',
-                    	url :'/login.do',
-                    	dataType :'json',
-                    	data : JSON.stringify(res),
-                    	success : function(data){
-                    		console.log(data);
-                    		location.href ="/main.do";
-                    	}
-                    	
-                    });           
-                  },
-                  fail: function(error) {
-                    alert(JSON.stringify(error));
-                  }
-                });
+                 	$.ajax({
+  						type : 'POST', // Http Request Method로 POST로 지정
+  						url : '/main.do', // 서버 요청 주소
+  						contentType : 'application/json;charset=UTF-8', // 서버 요청시 전송할 데이터가 UTF-8 형식의 JSON 객체임을 명시
+  						data : JSON.stringify(res), // JavaScript 객체를 JSON 객체로 변환하여 서버 요청시 전송
+  						dataType : 'json', // 서버로부터 응답받을 데이터가 JSON 객체임을 명시하여 수작업 없이 응답 데이터를 JavaScript 객체로 획득
+					});
+                 	
+                 	location.href ="/main.do"
+
           },
           fail: function(err) {
              alert(JSON.stringify(err));
