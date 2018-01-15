@@ -59,6 +59,9 @@
       	<hr class="star-light">
        	<a id="kakao-login-btn"></a>
        	 <script type='text/javascript'>
+       	var id;
+        var nickname;
+        var profile_image;
      	 //<![CDATA[
         // 사용할 앱의 JavaScript 키를 설정해 주세요.
         Kakao.init('f9d11ad5a866d8080d8f0f77144fa42c');
@@ -70,7 +73,11 @@
                   url: '/v1/user/me',
                   success: function(res) {
                     alert(JSON.stringify(res));
-                    var res = res
+                    id = res.id;
+                    nickname = res.properties.nickname;
+                    profile_image=res.properties.profile_image;
+                    
+                    location.href="/main.do?id="+id+"&name="+nickname+"&image="+profile_image;
                   },
                   fail: function(error) {
                     alert(JSON.stringify(error));

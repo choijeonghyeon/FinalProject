@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Handles requests for the application home page.
@@ -34,11 +35,14 @@ public class HomeController {
 		
 		return "home";
 	}
-	@RequestMapping(value = "/main.do")
-	public String main() {
-	
-		return "main";
-	}
+	@RequestMapping(value = "/main.do", method=RequestMethod.GET)
+	   public String main(@RequestParam("id") String id, @RequestParam("name") String nickname , @RequestParam("image") 
+	   String profile_image) {
+	      
+	      System.out.println(id);
+	   
+	      return "main";
+	   }
 	@RequestMapping(value = "/login.do")
 	public String login() {
 		
@@ -52,7 +56,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/ref/mainRef.do")
 	public String mainRef() {
-	
+		
 		return "/ref/mainRef";
 	}
 	@RequestMapping(value = "/ref/selectRef.do")
