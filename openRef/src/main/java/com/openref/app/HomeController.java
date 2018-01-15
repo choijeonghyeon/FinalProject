@@ -50,7 +50,15 @@ public class HomeController {
 		session.invalidate();
 		return "redirect:/login.do";
 	}
+	@RequestMapping(value = "/ref/mainRef.do")
+	public String mainRef() {
 	
+		return "/ref/mainRef";
+	}
+	@RequestMapping(value = "/ref/selectRef.do")
+	public String selectRef() {
 	
+		return "/ref/selectRef";
+	}
 	
 }
