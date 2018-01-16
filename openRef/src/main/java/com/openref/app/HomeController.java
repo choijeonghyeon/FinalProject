@@ -37,11 +37,14 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/main.do", method=RequestMethod.GET)
 	   public String main(@RequestParam("id") String id, @RequestParam("name") String nickname , @RequestParam("image") 
-	   String profile_image) {
+	   String profile_image, HttpSession session) {
 	      
-	      System.out.println(id);
-	   
-	      return "main";
+			session.setAttribute("nickname", nickname);
+	      session.setAttribute("image", profile_image);
+	    //  System.out.println(id);
+	    //  System.out.println(nickname);
+	    //  System.out.println(profile_image);
+	      return "main"; 
 	   }
 	@RequestMapping(value = "/login.do")
 	public String login() {
@@ -56,12 +59,14 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/ref/mainRef.do")
 	public String mainRef() {
+
 		
 		return "/ref/mainRef";
 	}
+	
 	@RequestMapping(value = "/ref/selectRef.do")
 	public String selectRef() {
-	
+
 		return "/ref/selectRef";
 	}
 	
